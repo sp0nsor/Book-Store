@@ -30,4 +30,11 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.MapControllers();
 
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:3000")
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+});
+
 app.Run();
