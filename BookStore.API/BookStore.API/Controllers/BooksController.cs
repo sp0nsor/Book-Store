@@ -1,10 +1,12 @@
 ﻿using BookStore.Core.Models;
-using BookStore.API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using BookStore.Core.Abstractions;
+using BookStore.API.Contracts.Books;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookStore.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
@@ -17,11 +19,11 @@ namespace BookStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BooksResponse>>> GetBooks()
+        public async Task<ActionResult<List<BookResponse>>> GetBooks()
         {
             var books = await _bookService.GetAllBooks();
 
-            var response = books.Select(b => new BooksResponse(b.Id, b.Title, b.Description, b.Price));
+            var response = books.Select(b => new BookResponse(b.Id, b.Title, b.Description, b.Price));
 
             return Ok(response);
         }

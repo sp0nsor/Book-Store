@@ -1,4 +1,4 @@
-﻿namespace BookStore.API.Contracts
+﻿namespace BookStore.API.Contracts.Books
 {
     public record BookRequest(
         string Title,
