@@ -1,10 +1,11 @@
-﻿using BookStore.Core.Abstractions;
-using BookStore.Core.Abstractions.Auth;
+﻿using BookStore.Core.Abstractions.Auth;
+using BookStore.Core.Abstractions.Repositories;
+using BookStore.Core.Abstractions.Services;
 using BookStore.Core.Models;
 
 namespace BookStore.Application.Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
         private readonly IPasswordHasher _hasher;
         private readonly IUsersRepository _usersRepository;

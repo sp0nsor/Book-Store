@@ -1,20 +1,20 @@
-﻿using BookStore.Application.Services;
-using BookStore.API.Contracts.Users;
+﻿using BookStore.API.Contracts.Users;
+using BookStore.Core.Abstractions.Services;
 
 namespace BookStore.API.Endpoints
 {
-    public static class UsersEndpoint
+    public static class UsersEndpoints
     {
         public static IEndpointRouteBuilder MapUsersEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapPost("register", Register);
-            app.MapPost("login", Login);
+            app.MapPost("Register", Register);
+            app.MapPost("Login", Login);
 
             return app;
         }
 
         private static async Task<IResult> Login(
-            LoginUserRequest request, UsersService usersService, HttpContext httpContext)
+            LoginUserRequest request, IUsersService usersService, HttpContext httpContext)
         {
             var token = await usersService.Login(request.Email, request.Password);
 
@@ -24,7 +24,7 @@ namespace BookStore.API.Endpoints
         }
 
         private static async Task<IResult> Register
-            (RegisterUserRequest request, UsersService usersService)
+            (RegisterUserRequest request, IUsersService usersService)
         {
             await usersService.Register(request.UserName, request.Email, request.Password);
 

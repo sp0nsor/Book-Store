@@ -10,7 +10,7 @@ export interface LoginRequest {
 }
 
 export const registerUser = async (registerRequest: RegisterRequest) => {
-  await fetch("http://localhost:5188/register", {
+  await fetch("http://localhost:5188/Register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const registerUser = async (registerRequest: RegisterRequest) => {
 };
 
 export const loginUser = async (loginRequest: LoginRequest) => {
-  await fetch("http://localhost:5188/login", {
+  await fetch("http://localhost:5188/Login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,8 +1,9 @@
 using BookStore.API.Endpoints;
 using BookStore.API.Extensions;
 using BookStore.Application.Services;
-using BookStore.Core.Abstractions;
 using BookStore.Core.Abstractions.Auth;
+using BookStore.Core.Abstractions.Repositories;
+using BookStore.Core.Abstractions.Services;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories;
 using BookStore.Infrastructure;
@@ -25,9 +26,10 @@ builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddScoped<IBooksService, BooksService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
-builder.Services.AddScoped<UsersService>();
+
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IBooksService, BooksService>();
 
 builder.Services.AddDbContext<BookStoreDbContext>(
     options =>
@@ -55,7 +57,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapBooksEndpoints();
 app.MapUsersEndpoints();
 
 app.UseCors(policy =>
