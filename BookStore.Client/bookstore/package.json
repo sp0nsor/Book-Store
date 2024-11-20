@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "antd": "^5.22.0",
+    "cookie": "^1.0.1",
     "next": "^13.4.13",
     "rc-resize-observer": "^1.4.0",
     "react": "^18.3.1",

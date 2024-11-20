@@ -9,7 +9,7 @@ import {
   deleteBook,
   getAllBooks,
   updateBook,
-} from "../services/book";
+} from "../services/BookService";
 import { CreateUpdateBook, Mode } from "../components/CreateUpdateBook";
 
 const { Title } = Typography;
@@ -45,7 +45,7 @@ export default function BooksPage() {
     setBooks(books);
   };
 
-  const handleupdateBook = async (id: string, request: BookRequest) => {
+  const handleUpdateBook = async (id: string, request: BookRequest) => {
     await updateBook(id, request);
     closeModal();
 
@@ -84,7 +84,7 @@ export default function BooksPage() {
         values={values}
         isModalOpen={isModalOpen}
         handleCreate={handleCreateBook}
-        handleUpdate={handleupdateBook}
+        handleUpdate={handleUpdateBook}
         handleCancel={closeModal}
       />
       {loading ? (

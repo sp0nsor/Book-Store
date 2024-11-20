@@ -1,5 +1,5 @@
 import { Input, Modal } from "antd";
-import { BookRequest } from "../services/book";
+import { BookRequest } from "../services/BookService";
 import { useEffect, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 

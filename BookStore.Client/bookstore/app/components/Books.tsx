@@ -17,7 +17,7 @@ export const Books = ({ books, handleDelete, handleOpen }: Props) => {
           bordered={false}
         >
           <p> {book.description} </p>
-          <div className="card__buttons">
+          <div className="card_buttons">
             <Button onClick={() => handleOpen(book)} style={{ flex: 1 }}>
               Редактировать
             </Button>
