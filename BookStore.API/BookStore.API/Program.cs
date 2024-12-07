@@ -4,6 +4,7 @@ using BookStore.Application.Services;
 using BookStore.Core.Abstractions.Auth;
 using BookStore.Core.Abstractions.Repositories;
 using BookStore.Core.Abstractions.Services;
+using BookStore.Core.Enums;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories;
 using BookStore.Infrastructure;
@@ -14,6 +15,8 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection((nameof(JwtOptions))));
+builder.Services.Configure<AuthorizationOptions>(builder.Configuration.GetSection((nameof(AuthorizationOptions))));
+
 builder.Services.AddApiAuthentication(
     builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>()
 );
@@ -67,5 +70,25 @@ app.UseCors(policy =>
           .AllowAnyHeader()
           .AllowAnyMethod();
 });
+
+app.MapGet("get", () =>
+{
+    return Results.Ok("Ok");
+}).RequirePermissions(Permission.Read);
+
+app.MapPost("post", () =>
+{
+    return Results.Ok("Ok");
+}).RequirePermissions(Permission.Create);
+
+app.MapPut("put", () =>
+{
+    return Results.Ok("Ok");
+}).RequirePermissions(Permission.Update);
+
+app.MapDelete("delete", () =>
+{
+    return Results.Ok("Ok");
+}).RequirePermissions(Permission.Delete);
 
 app.Run();

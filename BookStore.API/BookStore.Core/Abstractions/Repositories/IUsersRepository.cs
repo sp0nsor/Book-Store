@@ -1,4 +1,5 @@
-﻿using BookStore.Core.Models;
+﻿using BookStore.Core.Enums;
+using BookStore.Core.Models;
 
 namespace BookStore.Core.Abstractions.Repositories
 {
@@ -6,5 +7,6 @@ namespace BookStore.Core.Abstractions.Repositories
     {
         Task Add(User user);
         Task<User> GetByEmail(string email);
+        Task<ICollection<Permission>> GetUserPermissions(Guid userId);
     }
 }

@@ -35,7 +35,7 @@ namespace BookStore.Application.Services
 
             var result = _hasher.Verify(password, user.PasswordHash);
 
-            if (result == false)
+            if (!result)
                 throw new Exception("Fail to login");
 
             var token = _jwtProvider.GenerateToken(user);

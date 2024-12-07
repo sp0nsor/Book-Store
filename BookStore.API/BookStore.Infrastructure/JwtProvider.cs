@@ -17,7 +17,11 @@ namespace BookStore.Infrastructure
 
         public string GenerateToken(User user)
         {
-            Claim[] claims = [new("userId", user.Id.ToString())];
+            Claim[] claims =
+            [
+                new(CustomClaims.UserId, user.Id.ToString())
+            ];
+
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256);
@@ -26,7 +30,6 @@ namespace BookStore.Infrastructure
                 claims: claims,
                 signingCredentials: signingCredentials,
                 expires: DateTime.UtcNow.AddHours(_options.ExporesHours));
-
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
             return tokenValue;
