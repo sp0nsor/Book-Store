@@ -2,7 +2,6 @@
 using BookStore.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Net;
 
 namespace BookStore.DataAccess.Configurations
 {

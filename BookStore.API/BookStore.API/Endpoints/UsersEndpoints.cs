@@ -14,7 +14,9 @@ namespace BookStore.API.Endpoints
         }
 
         private static async Task<IResult> Login(
-            LoginUserRequest request, IUsersService usersService, HttpContext httpContext)
+            LoginUserRequest request,
+            IUsersService usersService,
+            HttpContext httpContext)
         {
             var token = await usersService.Login(request.Email, request.Password);
 

@@ -1,7 +1,10 @@
-﻿using BookStore.API.Contracts.Books;
+﻿using BookStore.API.Contracts;
+using BookStore.API.Contracts.Books;
+using BookStore.Application.Services;
 using BookStore.Core.Abstractions.Services;
 using BookStore.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace BookStore.API.Endpoints
 {
@@ -15,6 +18,7 @@ namespace BookStore.API.Endpoints
             group.MapPost("/", CreateBook);
             group.MapPut("/{id:guid}", UpdateBook);
             group.MapDelete("/{id:guid}", DeleteBook);
+            group.MapPost("by", ByBook);
 
             return app;
         }
@@ -49,11 +53,24 @@ namespace BookStore.API.Endpoints
 
             return Results.Ok(bookId);
         }
+
         private static async Task<IResult> DeleteBook(Guid id, IBooksService booksService)
         {
             var bookId = await booksService.DeleteBook(id);
 
             return Results.Ok(bookId);
+        }
+
+        private static async Task<IResult> ByBook([FromBody] TransferRequest request, IPaymentService paymentService)
+        {
+            var isOk = await paymentService.MakeTransfer(request);
+
+            if (isOk)
+            {
+                return Results.Ok();
+            }
+
+            return Results.BadRequest();
         }
     }
 }

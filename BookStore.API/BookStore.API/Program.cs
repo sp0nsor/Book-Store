@@ -40,6 +40,11 @@ builder.Services.AddDbContext<BookStoreDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(BookStoreDbContext)));
     });
 
+builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5260");
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

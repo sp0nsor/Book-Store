@@ -19,7 +19,7 @@ namespace BookStore.DataAccess.Repositories
         public async Task Add(User user)
         {
             var roleEntity = await _context.Roles
-                .SingleOrDefaultAsync(r => r.Id == (int)Role.Admin)
+                .SingleOrDefaultAsync(r => r.Id == (int)Role.User)
                 ?? throw new InvalidOperationException();
 
             var userEntity = new UserEntity()
@@ -56,7 +56,6 @@ namespace BookStore.DataAccess.Repositories
                 .Select(u => u.Roles)
                 .ToArrayAsync();
 
-            Console.WriteLine(roles[0].First().Permissions.First().Name);
 
             return roles
                 .SelectMany(r => r)

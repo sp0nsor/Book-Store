@@ -50,8 +50,6 @@ namespace BookStore.API.Extensions
             this TBuilder builder, params Permission[] permissions)
                 where TBuilder : IEndpointConventionBuilder
         {
-            Console.WriteLine("zxc");
-
             return builder.RequireAuthorization(policy =>
                 policy.AddRequirements(new PermissionRequirement(permissions)));
         }

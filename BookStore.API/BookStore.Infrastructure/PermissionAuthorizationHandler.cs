@@ -29,13 +29,7 @@ namespace BookStore.Infrastructure
 
             var permissionService = scope.ServiceProvider
                 .GetRequiredService<IPermissionService>();
-            //Console.WriteLine(requirement.Permissions.GetValue(0));
             var permissions = await permissionService.GetPermissions(id);
-
-            if (permissions.IsNullOrEmpty())
-            {
-                Console.WriteLine("qazqazqazqazqazqazqaz");
-            }
 
             if (permissions.Intersect(requirement.Permissions).Any())
             {
