@@ -1,5 +1,5 @@
 ﻿using BookStore.API.Contracts;
-using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
 
 namespace BookStore.Application.Services
@@ -7,23 +7,24 @@ namespace BookStore.Application.Services
     public class PaymentService : IPaymentService
     {
         private readonly HttpClient _httpClient;
+        private Guid BookStroreBankNumber = Guid.Parse("574FDDD8-671C-4C25-B2CA-BCE107D1E8A8");
 
         public PaymentService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<bool> MakeTransfer(TransferRequest request)
+        public async Task<IResult> MakeTransfer(TransferRequest request)
         {
-            var response = await _httpClient.PutAsJsonAsync("/api/account/transfer", request);
+            var newRequest = new TransferRequest(
+                request.SenderAccountNumber,
+                request.SenderSecretKey,
+                request.BookPrice,
+                BookStroreBankNumber);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return true;
-            }
+            var response = await _httpClient.PutAsJsonAsync("/api/account/transfer", newRequest);
 
-            var error = await response.Content.ReadAsStringAsync();
-            throw new Exception($"Ошибка перевода: {response.StatusCode}, {error}");
+            return response.IsSuccessStatusCode ? Results.Ok(response) : Results.BadRequest(response);
         }
     }
 }

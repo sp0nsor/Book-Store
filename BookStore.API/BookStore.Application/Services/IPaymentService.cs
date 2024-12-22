@@ -1,9 +1,10 @@
 ﻿using BookStore.API.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace BookStore.Application.Services
 {
     public interface IPaymentService
     {
-        Task<bool> MakeTransfer(TransferRequest request);
+        Task<IResult> MakeTransfer(TransferRequest request);
     }
 }

@@ -18,7 +18,7 @@ namespace BookStore.API.Endpoints
             group.MapPost("/", CreateBook);
             group.MapPut("/{id:guid}", UpdateBook);
             group.MapDelete("/{id:guid}", DeleteBook);
-            group.MapPost("by", ByBook);
+            group.MapPost("buy", BuyBook);
 
             return app;
         }
@@ -61,16 +61,11 @@ namespace BookStore.API.Endpoints
             return Results.Ok(bookId);
         }
 
-        private static async Task<IResult> ByBook([FromBody] TransferRequest request, IPaymentService paymentService)
+        private static async Task<IResult> BuyBook([FromBody] TransferRequest request, IPaymentService paymentService)
         {
-            var isOk = await paymentService.MakeTransfer(request);
+            var response = await paymentService.MakeTransfer(request);
 
-            if (isOk)
-            {
-                return Results.Ok();
-            }
-
-            return Results.BadRequest();
+            return response;
         }
     }
 }

@@ -4,6 +4,12 @@ export interface BookRequest {
   price: number;
 }
 
+export interface BuyBookRequest {
+  senderAccountNumber: string;
+  senderSecretKey: string;
+  bookPrice: number;
+}
+
 export const getAllBooks = async () => {
   const response = await fetch("http://localhost:5188/api/Books", {
     method: "GET",
@@ -39,5 +45,16 @@ export const deleteBook = async (id: string) => {
   await fetch(`http://localhost:5188/api/Books/${id}`, {
     method: "DELETE",
     credentials: "include",
+  });
+};
+
+export const buyBook = async (buyRequest: BuyBookRequest) => {
+  await fetch("http://localhost:5188/api/Books/buy", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(buyRequest),
   });
 };

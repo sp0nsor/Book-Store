@@ -3,6 +3,6 @@
     public record TransferRequest(
         Guid SenderAccountNumber,
         string SenderSecretKey,
-        Guid RecipientAccountNumber,
-        decimal moneyAmount);
+        decimal BookPrice,
+        Guid recipientAccountNumber);
 }

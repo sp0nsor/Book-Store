@@ -76,24 +76,4 @@ app.UseCors(policy =>
           .AllowAnyMethod();
 });
 
-app.MapGet("get", () =>
-{
-    return Results.Ok("Ok");
-}).RequirePermissions(Permission.Read);
-
-app.MapPost("post", () =>
-{
-    return Results.Ok("Ok");
-}).RequirePermissions(Permission.Create);
-
-app.MapPut("put", () =>
-{
-    return Results.Ok("Ok");
-}).RequirePermissions(Permission.Update);
-
-app.MapDelete("delete", () =>
-{
-    return Results.Ok("Ok");
-}).RequirePermissions(Permission.Delete);
-
 app.Run();

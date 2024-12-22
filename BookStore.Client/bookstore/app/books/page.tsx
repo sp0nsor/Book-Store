@@ -5,13 +5,16 @@ import { Books } from "../components/Books";
 import { useEffect, useState } from "react";
 import {
   BookRequest,
+  BuyBookRequest,
   createBook,
   deleteBook,
   getAllBooks,
   updateBook,
+  buyBook,
 } from "../services/BookService";
 import { CreateUpdateBook, Mode } from "../components/CreateUpdateBook";
-
+import dynamic from "next/dynamic";
+const BuyBookForm = dynamic(() => import("../components/BuyBookForm"));
 const { Title } = Typography;
 
 export default function BooksPage() {
@@ -25,6 +28,8 @@ export default function BooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+  const [bookPrice, setBookPrice] = useState(1);
   const [mode, setMode] = useState(Mode.Create);
 
   useEffect(() => {
@@ -45,12 +50,23 @@ export default function BooksPage() {
     setBooks(books);
   };
 
+  const handleBuyBook = async (request: BuyBookRequest) => {
+    buyBook(request);
+    console.log(request);
+    closeBuyBookModal();
+  };
+
   const handleUpdateBook = async (id: string, request: BookRequest) => {
     await updateBook(id, request);
     closeModal();
 
     const books = await getAllBooks();
     setBooks(books);
+  };
+
+  const onBuyBookModalClick = async (price: number) => {
+    setBookPrice(price);
+    setIsBuyModalOpen(true);
   };
 
   const handleDeleteBook = async (id: string) => {
@@ -69,6 +85,10 @@ export default function BooksPage() {
   const opentModal = () => {
     setMode(Mode.Create);
     setIsModalOpen(true);
+  };
+
+  const closeBuyBookModal = () => {
+    setIsBuyModalOpen(false);
   };
 
   const closeModal = () => {
@@ -94,8 +114,16 @@ export default function BooksPage() {
           books={books}
           handleOpen={openEditModal}
           handleDelete={handleDeleteBook}
+          handleBuy={onBuyBookModalClick}
         />
       )}
+
+      <BuyBookForm
+        bookPrice={bookPrice}
+        isModalOpen={isBuyModalOpen}
+        handleCancel={closeBuyBookModal}
+        handleBuyBook={handleBuyBook}
+      ></BuyBookForm>
     </div>
   );
 }

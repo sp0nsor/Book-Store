@@ -5,9 +5,15 @@ interface Props {
   books: Book[];
   handleDelete: (id: string) => void;
   handleOpen: (book: Book) => void;
+  handleBuy: (price: number) => void;
 }
 
-export const Books = ({ books, handleDelete, handleOpen }: Props) => {
+export const Books = ({
+  books,
+  handleDelete,
+  handleOpen,
+  handleBuy,
+}: Props) => {
   return (
     <div className="cards">
       {books.map((book: Book) => (
@@ -18,6 +24,7 @@ export const Books = ({ books, handleDelete, handleOpen }: Props) => {
         >
           <p> {book.description} </p>
           <div className="card_buttons">
+            <Button onClick={() => handleBuy(book.price)}>Купить</Button>
             <Button onClick={() => handleOpen(book)} style={{ flex: 1 }}>
               Редактировать
             </Button>
