@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoneyFlow.Core\MoneyFlow.Core.csproj" />
+    <ProjectReference Include="..\MoneyFlow.DataAccess\MoneyFlow.DataAccess.csproj" />
+    <ProjectReference Include="..\MoneyFlow.Infrastructure\MoneyFlow.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
